@@ -4,14 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>班級中控台</title>
+    <!-- 使用 Tailwind CDN 快速處理樣式 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      /* Import Noto Sans TC and Zen Maru Gothic */
+      /* 引入 Google Fonts: Noto Sans TC (中文), Zen Maru Gothic (圓體), Roboto Mono (數字) */
       @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&family=Roboto+Mono:wght@400;500;700&display=swap');
       
       body {
         font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
         background-color: #f3f4f6;
+        overflow: hidden; /* 防止整個頁面出現捲軸，交由內部組件處理 */
       }
       
       input, button, textarea, select {
@@ -22,6 +24,7 @@
         font-family: 'Roboto Mono', monospace;
       }
       
+      /* 警示條紋背景 */
       .stripe-pattern {
         background: repeating-linear-gradient(
           -45deg,
@@ -31,6 +34,8 @@
           #ffffff 20px
         );
       }
+
+      /* 跑馬燈動畫 */
       @keyframes marquee {
         0% { transform: translateX(100%); }
         100% { transform: translateX(-100%); }
@@ -39,6 +44,7 @@
         animation: marquee 20s linear infinite;
       }
       
+      /* 自定義捲軸樣式 */
       .custom-scrollbar::-webkit-scrollbar {
         width: 6px;
       }
@@ -52,11 +58,37 @@
       .custom-scrollbar::-webkit-scrollbar-thumb:hover {
         background-color: #d1d5db;
       }
+
+      /* 載入動畫 */
+      @keyframes pulse-text {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      .loading-text {
+        animation: pulse-text 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
     </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
+  }
+}
+</script>
 </head>
   <body>
-    <div id="root"></div>
-    <!-- 修正路徑：指向根目錄的 index.tsx -->
-    <script type="module" src="/index.tsx"></script>
+    <div id="root" class="flex h-screen w-full items-center justify-center bg-gray-50">
+      <div class="flex flex-col items-center gap-4">
+        <div class="w-12 h-12 border-4 border-indigo-200 border-t-indigo-500 rounded-full animate-spin"></div>
+        <div class="text-indigo-400 font-bold tracking-widest loading-text">系統啟動中...</div>
+      </div>
+    </div>
+    <!-- 關鍵修正：使用相對路徑 ./index.tsx 確保在各種環境下都能正確載入 -->
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>
