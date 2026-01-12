@@ -1,0 +1,7 @@
+{
+  "name": "Classroom Command Center",
+  "description": "A comprehensive dashboard for teachers to manage classroom time, schedules, attendance, and announcements, featuring AI-powered planning.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
